@@ -134,6 +134,42 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
 .modal.on{display:grid !important}
 .progress{height:8px;border-radius:999px;background:var(--surf2);overflow:hidden;margin:12px 0}
 .progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2F7D5B,#E0A53C);transition:width .35s ease}
+.drop-ico{width:64px;height:64px;margin:0 auto 14px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(47,125,91,.15),rgba(224,165,60,.18));color:var(--grn)}
+.wizard{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.wizard .w{position:relative;padding:14px;border-radius:14px;background:var(--surf);border:1.5px solid var(--line);text-align:center;box-shadow:var(--shadow)}
+.wizard .w b{display:block;font-size:1.4rem;font-weight:800;color:var(--gold);line-height:1}
+.wizard .w span{display:block;margin-top:4px;font-size:.86rem;color:var(--mut)}
+.wizard .w.on{border-color:var(--ink);background:var(--ink);color:#EEF2F1}
+.wizard .w.on b{color:var(--gold)}.wizard .w.on span{color:rgba(238,242,241,.75)}
+.wizard .w.done{border-color:color-mix(in srgb,var(--grn) 45%,var(--line));background:color-mix(in srgb,var(--grn) 10%,var(--surf))}
+.donut-wrap{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;min-height:160px}
+.donut-wrap svg{width:150px;height:150px}
+.legend{display:flex;flex-direction:column;gap:8px}
+.legend .lg{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.9rem}
+.legend .lg i{width:10px;height:10px;border-radius:50%;display:inline-block;margin-inline-end:8px}
+.hbar-track{height:8px;border-radius:999px;background:var(--surf);border:1px solid var(--line);overflow:hidden;margin-top:6px}
+.hbar-track>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#2F7D5B,#5CC49A);width:0;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.rank-item{display:block;padding:12px 14px}
+.rank-item .top{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center}
+.meter{height:10px;border-radius:999px;background:rgba(18,48,46,.08);overflow:hidden;margin-top:10px}
+.meter>i{display:block;height:100%;border-radius:999px;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.insight{position:relative;overflow:hidden}
+.insight .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin-bottom:10px;font-weight:800;color:#fff}
+.insight.cash .ico{background:var(--grn)}.insight.sales .ico{background:var(--amb)}.insight.loss .ico{background:var(--red)}
+.insight .val{font-size:1.25rem;font-weight:800;margin:4px 0}
+.action-card{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:start;padding:14px;border-radius:14px;background:var(--surf2);border:1px solid var(--line)}
+.action-card .n{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--ink);color:#EEF2F1;font-weight:800}
+.empty-box{padding:48px 24px;text-align:center}
+.empty-box .ei{width:72px;height:72px;margin:0 auto 14px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(29,74,70,.12),rgba(224,165,60,.16));font-size:1.8rem}
+.kpi-row{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.chart-line{height:190px}
+.bar .val{font-size:.68rem;font-weight:700;color:var(--ink);margin-bottom:2px}
+.tab{display:inline-flex;align-items:center;gap:6px}
+.tab .ti{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:.72rem;font-weight:800;background:rgba(18,48,46,.08)}
+.tab.on .ti{background:rgba(224,165,60,.25);color:var(--gold)}
+.skel{background:linear-gradient(90deg,var(--surf2),var(--surf),var(--surf2));background-size:200% 100%;animation:shimmer 1.2s linear infinite;border-radius:10px;height:14px}
+@keyframes shimmer{to{background-position:-200% 0}}
+@media(max-width:1100px){.kpi-row{grid-template-columns:1fr 1fr}.donut-wrap{grid-template-columns:1fr}}
 @media(max-width:960px){
   .app{grid-template-columns:1fr}
   .side{position:fixed;inset:0 auto 0 0;width:min(86vw,var(--side));transform:translateX(110%);transition:transform .25s;z-index:40}
@@ -141,11 +177,12 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
   .side.open{transform:translateX(0)}
   .overlay.on{display:block;position:fixed;inset:0;background:rgba(12,24,23,.5);z-index:30;backdrop-filter:blur(2px)}
   .menu-btn{display:inline-flex}
-  .grid.2,.grid.3,.grid.4,.steps{grid-template-columns:1fr}
+  .grid.2,.grid.3,.grid.4,.steps,.wizard,.kpi-row{grid-template-columns:1fr}
   .hero{grid-template-columns:1fr;min-height:auto;padding:28px 22px}
   .hero-art{order:-1}
   .main{padding:16px 14px 36px}
   .finding{grid-template-columns:1fr}
+  .donut-wrap{grid-template-columns:1fr;justify-items:center}
 }
 @media print{
   .side,.tabs,.no-print,.toast,.overlay,.menu-btn,.flow,#menuFab{display:none!important}
@@ -183,10 +220,10 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
       </div>
     </div>
     <div class="tabs no-print" id="tabs">
-      <button class="tab" data-tab="analyze">١. رفع الملف</button>
-      <button class="tab" data-tab="dashboard">٢. لوحة الرؤى</button>
-      <button class="tab" data-tab="actions">٣. المتابعة</button>
-      <button class="tab" data-tab="settings">الإعدادات</button>
+      <button class="tab" data-tab="analyze"><span class="ti">1</span> رفع الملف</button>
+      <button class="tab" data-tab="dashboard"><span class="ti">2</span> لوحة الرؤى</button>
+      <button class="tab" data-tab="actions"><span class="ti">3</span> المتابعة</button>
+      <button class="tab" data-tab="settings"><span class="ti">⚙</span> إعدادات</button>
     </div>
   </div>
 
@@ -224,27 +261,30 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
 
   <!-- Upload -->
   <section class="panel" id="analyze">
-    <div class="flow no-print" id="flowAnalyze">
-      <span class="pill on">١ الشركة</span>
-      <span class="pill on">٢ رفع الملف</span>
-      <span class="pill">٣ لوحة الرؤى</span>
+    <div class="wizard no-print" aria-label="خطوات الاستخدام">
+      <div class="w done"><b>1</b><span>بيانات الشركة</span></div>
+      <div class="w on"><b>2</b><span>رفع Excel</span></div>
+      <div class="w"><b>3</b><span>لوحة الرؤى</span></div>
     </div>
     <div class="card" style="margin-bottom:16px">
       <h3>ارفع بيانات «<span id="analyzeCoName"></span>»</h3>
-      <p class="lead">الملف يتحلّل على جهازك. أي أسماء أعمدة تنفع — كشّاف بيطابقها تلقائياً.</p>
+      <p class="lead">الملف يتحلّل على جهازك فقط. أي أسماء أعمدة تنفع — كشّاف بيطابقها لوحده.</p>
       <div class="progress" id="progWrap" hidden><i id="progBar"></i></div>
       <div class="muted" id="analyzeStatus"></div>
     </div>
 
     <div class="drop" id="drop">
+      <div class="drop-ico" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+      </div>
       <h3>اسحب ملف Excel هنا</h3>
-      <p>أو اختَر من جهازك. شيت المبيعات مطلوب.</p>
+      <p>أو اختَر من جهازك. شيت المبيعات مطلوب — المشتريات والمخزون اختياريان.</p>
       <div class="row" style="justify-content:center">
-        <label class="btn" style="position:relative;overflow:hidden">اختيار ملف
+        <label class="btn gold" style="position:relative;overflow:hidden">اختيار ملف Excel
           <input type="file" id="file" accept=".xlsx,.xls,.csv" style="position:absolute;inset:0;opacity:0;cursor:pointer;font-size:100px">
         </label>
+        <button class="btn soft" id="btnDemoHere">جرّب مثال جاهز</button>
         <button class="btn soft" id="btnPasteToggle">لصق جدول</button>
-        <button class="btn soft" id="btnDemoHere">بيانات تجريبية</button>
       </div>
       <p class="muted" id="fileName" style="margin-top:12px"></p>
     </div>
@@ -272,15 +312,20 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
 
   <!-- Dashboard -->
   <section class="panel" id="dashboard">
-    <div class="flow no-print">
-      <span class="pill done">١ الشركة</span>
-      <span class="pill done">٢ رفع الملف</span>
-      <span class="pill on">٣ لوحة الرؤى</span>
+    <div class="wizard no-print">
+      <div class="w done"><b>1</b><span>بيانات الشركة</span></div>
+      <div class="w done"><b>2</b><span>رفع Excel</span></div>
+      <div class="w on"><b>3</b><span>لوحة الرؤى</span></div>
     </div>
-    <div id="dashEmpty" class="card empty">لسه مفيش تحليل. ارفع ملف من تبويب «رفع الملف».</div>
+    <div id="dashEmpty" class="card empty-box">
+      <div class="ei" aria-hidden="true">📊</div>
+      <h3 style="margin:0 0 8px">لسه مفيش لوحة رؤى</h3>
+      <p class="muted" style="margin:0 0 16px">ارفع ملف Excel أو شغّل المثال الجاهز عشان تظهر الأرقام والرسوم.</p>
+      <button class="btn" id="dashGoUpload">روح لرفع الملف</button>
+    </div>
     <div id="dashBody" hidden>
-      <div class="grid 4" style="margin-bottom:16px">
-        <div class="card stat big"><p class="l">فرصة استرجاع تقديرية</p><p class="v" id="kpiRecover">—</p><p class="hint">مش ضمان — للمراجعة مع المحاسب</p></div>
+      <div class="kpi-row">
+        <div class="card stat big"><p class="l">فرصة استرجاع تقديرية</p><p class="v" id="kpiRecover">—</p><p class="hint">تقدير للمراجعة مع المحاسب — مش ضمان</p></div>
         <div class="card stat"><p class="l">إيراد الفترة</p><p class="v" id="kpiRevenue">—</p><p class="hint" id="kpiSpan">—</p></div>
         <div class="card stat"><p class="l">هامش الربح</p><p class="v" id="kpiMargin">—</p><p class="hint" id="kpiMarginHint">—</p></div>
         <div class="card stat"><p class="l">مشاكل مكتشفة</p><p class="v" id="kpiIssues">—</p><p class="hint" id="kpiQuality">—</p></div>
@@ -292,25 +337,31 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
           <p id="summary" class="lead" style="white-space:pre-wrap;margin:0"></p>
         </div>
         <div class="card">
-          <h3>أول ٣ إجراءات</h3>
+          <h3>ابدأ من هنا</h3>
           <div class="list" id="topActions"></div>
         </div>
       </div>
 
       <div class="grid 3" style="margin-bottom:16px">
-        <div class="insight" id="insCash"></div>
-        <div class="insight" id="insSales"></div>
-        <div class="insight" id="insLoss"></div>
+        <div class="insight cash" id="insCash"></div>
+        <div class="insight sales" id="insSales"></div>
+        <div class="insight loss" id="insLoss"></div>
       </div>
 
       <div class="grid 2" style="margin-bottom:16px">
-        <div class="card"><h3>التأثير حسب النوع</h3><div class="chart" id="chartKind"></div></div>
-        <div class="card"><h3>المبيعات الشهرية</h3><div class="chart" id="chartSales"></div></div>
+        <div class="card">
+          <h3>توزيع الفرصة حسب النوع</h3>
+          <div class="donut-wrap" id="chartKind"></div>
+        </div>
+        <div class="card">
+          <h3>اتجاه المبيعات الشهرية</h3>
+          <div class="chart chart-line" id="chartSales"></div>
+        </div>
       </div>
 
       <div class="grid 3" style="margin-bottom:16px">
         <div class="card"><h3>أعلى العملاء</h3><div class="rank" id="rankCust"></div></div>
-        <div class="card"><h3>أقوى المنتجات إيراداً</h3><div class="rank" id="rankProd"></div></div>
+        <div class="card"><h3>أقوى المنتجات</h3><div class="rank" id="rankProd"></div></div>
         <div class="card"><h3>أداء الفروع</h3><div class="rank" id="rankBranch"></div></div>
       </div>
 
@@ -327,9 +378,9 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
           <button class="chip" data-f="loss">تكلفة/ربح</button>
         </div>
         <div class="row">
-          <button class="btn soft sm" id="btnCopy">نسخ</button>
+          <button class="btn soft sm" id="btnCopy">نسخ للتواصل</button>
           <button class="btn soft sm" id="btnPrint">طباعة / PDF</button>
-          <button class="btn soft sm" id="btnExport">JSON</button>
+          <button class="btn soft sm" id="btnExport">تحميل JSON</button>
         </div>
       </div>
       <div class="list" id="findings"></div>
@@ -632,28 +683,75 @@ function fillSettings(){
   $('#sName').value=c.name;$('#sInd').value=c.ind||'';$('#sCu').value=c.cu;$('#sLg').value=c.lg;
   const T=th();$('#thStock').value=T.stockDays;$('#thCust').value=T.custDrop;$('#thSup').value=T.supPremium;$('#thMargin').value=T.weakMargin;
 }
+function shortNum(n){
+  n=Math.round(+n||0);
+  if(n>=1e6)return (n/1e6).toFixed(1)+'م';
+  if(n>=1e3)return (n/1e3).toFixed(n>=1e4?0:1)+'أ';
+  return String(n);
+}
 function renderChart(el,items,color){
   el.textContent='';
   if(!items.length){el.innerHTML='<p class="muted">لا بيانات</p>';return}
   const max=Math.max(...items.map(x=>x.v),1);
-  items.forEach(x=>{
+  items.forEach((x,idx)=>{
     const b=document.createElement('div');b.className='bar';
-    const i=document.createElement('i');i.style.height=Math.max(4,(x.v/max)*140)+'px';if(color)i.style.background=color;
-    const s=document.createElement('span');s.textContent=x.l;b.append(i,s);el.appendChild(b);
+    const val=document.createElement('div');val.className='val';val.textContent=shortNum(x.v);
+    const i=document.createElement('i');
+    i.style.height=Math.max(6,(x.v/max)*145)+'px';
+    i.style.transitionDelay=(idx*40)+'ms';
+    if(color)i.style.background=color;
+    const s=document.createElement('span');s.textContent=x.l;
+    b.append(val,i,s);el.appendChild(b);
   });
 }
-function renderRank(el,items,fmt){
+function renderDonut(el,parts){
+  el.textContent='';
+  const total=sum(parts,p=>p.v)||1;
+  if(!parts.some(p=>p.v>0)){el.innerHTML='<p class="muted">لا بيانات</p>';return}
+  const r=54,c=2*Math.PI*r;
+  let off=0;
+  const rings=parts.map(p=>{
+    const len=c*((p.v||0)/total);
+    const seg=`<circle cx="80" cy="80" r="${r}" fill="none" stroke="${p.c}" stroke-width="18" stroke-dasharray="${len} ${c-len}" stroke-dashoffset="${-off}" transform="rotate(-90 80 80)" style="transition:stroke-dasharray .6s ease"/>`;
+    off+=len;return seg;
+  }).join('');
+  el.innerHTML=`<svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="${r}" fill="none" stroke="var(--surf2)" stroke-width="18"/>${rings}<text x="80" y="76" text-anchor="middle" font-size="13" fill="var(--mut)">الإجمالي</text><text x="80" y="98" text-anchor="middle" font-size="16" font-weight="800" fill="var(--ink)">${shortNum(total)}</text></svg><div class="legend"></div>`;
+  const leg=el.querySelector('.legend');
+  parts.forEach(p=>{
+    const row=document.createElement('div');row.className='lg';
+    row.innerHTML=`<span><i style="background:${p.c}"></i><b></b></span><span class="vl"></span>`;
+    row.querySelector('b').textContent=p.l+' · '+(p.n||0);
+    row.querySelector('.vl').textContent=fm(p.v||0);
+    leg.appendChild(row);
+  });
+}
+function renderRank(el,items){
   el.textContent='';
   if(!items||!items.length){el.innerHTML='<p class="muted">لا بيانات كافية</p>';return}
+  const max=Math.max(...items.map(x=>x.value),1);
   items.forEach((it,idx)=>{
     const d=document.createElement('div');d.className='rank-item';
-    d.innerHTML='<span class="ix"></span><div><div class="nm"></div><div class="mt"></div></div><div class="vl"></div>';
+    d.innerHTML='<div class="top"><span class="ix"></span><div><div class="nm"></div><div class="mt"></div></div><div class="vl"></div></div><div class="hbar-track"><i></i></div>';
     d.querySelector('.ix').textContent=String(idx+1);
     d.querySelector('.nm').textContent=it.name;
     d.querySelector('.mt').textContent=it.meta||'';
-    d.querySelector('.vl').textContent=fmt?fmt(it):fm(it.value);
+    d.querySelector('.vl').textContent=fm(it.value);
+    const bar=d.querySelector('.hbar-track>i');
+    requestAnimationFrame(()=>{bar.style.width=Math.max(4,(it.value/max)*100)+'%'});
     el.appendChild(d);
   });
+}
+function fillInsight(el,cls,title,count,amount,maxAmt){
+  el.className='insight '+cls;
+  const pct=maxAmt?Math.max(4,Math.round((amount/maxAmt)*100)):0;
+  const colors={cash:'var(--grn)',sales:'var(--amb)',loss:'var(--red)'};
+  el.innerHTML=`<div class="ico"></div><strong></strong><div class="val"></div><div class="muted"></div><div class="meter"><i></i></div>`;
+  el.querySelector('.ico').textContent=cls==='cash'?'م':cls==='sales'?'ع':'ت';
+  el.querySelector('strong').textContent=title;
+  el.querySelector('.val').textContent=fm(amount||0);
+  el.querySelector('.muted').textContent=(count||0)+' بند مؤثر';
+  const m=el.querySelector('.meter>i');m.style.background=colors[cls];
+  requestAnimationFrame(()=>{m.style.width=pct+'%'});
 }
 function renderFindingCard(f,c,withStatus){
   const st=(c.actions&&c.actions[fid(f)])||'todo';
@@ -691,19 +789,25 @@ function renderDashboard(){
   $('#kpiQuality').textContent=labels[level];
   $('#summary').textContent=rep.summary||'';
   const kinds=ins.kinds||{};
-  $('#insCash').innerHTML='<strong>مخزون واقف</strong>'+((kinds.cashN||0)+' بند · أثر '+fm(kinds.cash||0));
-  $('#insSales').innerHTML='<strong>عملاء بيتراجعوا</strong>'+((kinds.salesN||0)+' بند · أثر '+fm(kinds.sales||0));
-  $('#insLoss').innerHTML='<strong>تكلفة / هامش</strong>'+((kinds.lossN||0)+' بند · أثر '+fm(kinds.loss||0));
+  const maxKind=Math.max(kinds.cash||0,kinds.sales||0,kinds.loss||0,1);
+  fillInsight($('#insCash'),'cash','مخزون واقف',kinds.cashN,kinds.cash,maxKind);
+  fillInsight($('#insSales'),'sales','عملاء بيتراجعوا',kinds.salesN,kinds.sales,maxKind);
+  fillInsight($('#insLoss'),'loss','تكلفة / هامش',kinds.lossN,kinds.loss,maxKind);
   const ta=$('#topActions');ta.textContent='';
   rep.findings.slice(0,3).forEach((f,i)=>{
-    const p=document.createElement('p');p.style.margin='0 0 10px';p.innerHTML='<strong></strong> — <span class="muted"></span>';
-    p.querySelector('strong').textContent=(i+1)+'. '+f.a;
-    p.querySelector('span').textContent=f.t+' · '+fm(f.i);
+    const p=document.createElement('div');p.className='action-card';
+    p.innerHTML='<div class="n"></div><div><strong style="display:block;margin-bottom:4px"></strong><span class="muted"></span></div><div class="vl" style="font-weight:800;white-space:nowrap"></div>';
+    p.querySelector('.n').textContent=String(i+1);
+    p.querySelector('strong').textContent=f.a;
+    p.querySelector('span').textContent=f.t;
+    p.querySelector('.vl').textContent=fm(f.i);
     ta.appendChild(p);
   });
-  if(!rep.findings.length)ta.innerHTML='<p class="muted">لا إجراءات عاجلة.</p>';
-  renderChart($('#chartKind'),[
-    {l:'مخزون',v:kinds.cash||0},{l:'عملاء',v:kinds.sales||0},{l:'تكلفة',v:kinds.loss||0}
+  if(!rep.findings.length)ta.innerHTML='<p class="muted">لا إجراءات عاجلة حالياً.</p>';
+  renderDonut($('#chartKind'),[
+    {l:'مخزون',v:kinds.cash||0,n:kinds.cashN||0,c:'#2F7D5B'},
+    {l:'عملاء',v:kinds.sales||0,n:kinds.salesN||0,c:'#B9770E'},
+    {l:'تكلفة',v:kinds.loss||0,n:kinds.lossN||0,c:'#C4411F'}
   ]);
   renderChart($('#chartSales'),(rep.meta?.months||[]).map(m=>({l:m.k.slice(5),v:m.v})),'linear-gradient(180deg,#E0A53C,#B9770E)');
   renderRank($('#rankCust'),ins.customers||[]);
@@ -911,6 +1015,7 @@ function closeModal(){
 }
 $('#btnNew').addEventListener('click',e=>{e.preventDefault();openModal()});
 $('#welcomeNew').addEventListener('click',e=>{e.preventDefault();openModal()});
+const goUpload=$('#dashGoUpload');if(goUpload)goUpload.addEventListener('click',()=>{if(cur())setTab('analyze');else openModal()});
 $('#modalCancel').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closeModal()});
 $('#modalCloseX').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closeModal()});
 $('#modal').addEventListener('click',e=>{if(e.target===$('#modal'))closeModal()});
