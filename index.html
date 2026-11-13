@@ -130,8 +130,8 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
 .step:nth-child(2){animation-delay:.06s}.step:nth-child(3){animation-delay:.12s}
 .step .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#EEF2F1;font-weight:800;font-size:.85rem;margin-bottom:10px}
 .step h3{margin:0 0 6px;font-size:1.05rem}.step p{margin:0;color:var(--mut);font-size:.95rem}
-.modal{position:fixed;inset:0;background:rgba(12,24,23,.5);display:none;place-items:center;z-index:60;padding:16px;backdrop-filter:blur(3px)}
-.modal.on{display:grid}
+.modal{position:fixed;inset:0;background:rgba(12,24,23,.55);display:none !important;place-items:center;z-index:80;padding:16px;backdrop-filter:blur(3px)}
+.modal.on{display:grid !important}
 .progress{height:8px;border-radius:999px;background:var(--surf2);overflow:hidden;margin:12px 0}
 .progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2F7D5B,#E0A53C);transition:width .35s ease}
 @media(max-width:960px){
@@ -391,19 +391,22 @@ label.lbl{display:block;font-size:.86rem;color:var(--mut);margin:0 0 6px;font-we
   </section>
 </main>
 
-<div class="modal" id="modal">
-  <div class="card" style="width:min(460px,100%);margin:0">
-    <h3>شركة جديدة</h3>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="card" id="modalCard" style="width:min(460px,100%);margin:0" onclick="event.stopPropagation()">
+    <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:4px">
+      <h3 id="modalTitle" style="margin:0">شركة جديدة</h3>
+      <button type="button" class="btn soft sm" id="modalCloseX" aria-label="إغلاق">✕</button>
+    </div>
     <p class="lead">املأ البيانات ثم ارفع ملف Excel مباشرة.</p>
     <div class="grid">
-      <div class="form-g"><label class="lbl">اسم الشركة *</label><input class="field" id="nName" placeholder="شركة النور"></div>
+      <div class="form-g"><label class="lbl">اسم الشركة *</label><input class="field" id="nName" placeholder="شركة النور" autocomplete="organization"></div>
       <div class="form-g"><label class="lbl">النشاط</label><input class="field" id="nInd" placeholder="أجهزة كهربائية"></div>
       <div class="form-g"><label class="lbl">العملة</label><select class="select" id="nCu"></select></div>
       <div class="form-g"><label class="lbl">لغة التقرير</label><select class="select" id="nLg"></select></div>
     </div>
     <div class="row" style="margin-top:14px;justify-content:flex-end">
-      <button class="btn soft" id="modalCancel">إلغاء</button>
-      <button class="btn" id="modalOk">حفظ ورفع الملف</button>
+      <button type="button" class="btn soft" id="modalCancel">إلغاء</button>
+      <button type="button" class="btn" id="modalOk">حفظ ورفع الملف</button>
     </div>
   </div>
 </div>
@@ -893,17 +896,36 @@ function ensureDemoCompany(){
   state.sel=c.id;save();return c;
 }
 
-function openModal(){$('#modal').classList.add('on');$('#nName').focus()}
-function closeModal(){$('#modal').classList.remove('on')}
-$('#btnNew').onclick=$('#welcomeNew').onclick=openModal;
-$('#modalCancel').onclick=closeModal;
+function openModal(){
+  const m=$('#modal');if(!m)return;
+  m.hidden=false;
+  m.classList.add('on');
+  m.style.display='grid';
+  setTimeout(()=>$('#nName')&&$('#nName').focus(),50);
+}
+function closeModal(){
+  const m=$('#modal');if(!m)return;
+  m.classList.remove('on');
+  m.hidden=true;
+  m.style.display='none';
+}
+$('#btnNew').addEventListener('click',e=>{e.preventDefault();openModal()});
+$('#welcomeNew').addEventListener('click',e=>{e.preventDefault();openModal()});
+$('#modalCancel').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closeModal()});
+$('#modalCloseX').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closeModal()});
 $('#modal').addEventListener('click',e=>{if(e.target===$('#modal'))closeModal()});
-$('#modalOk').onclick=()=>{
-  const name=$('#nName').value.trim();if(!name){toast('اكتب اسم الشركة');return}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#modal')&&!$('#modal').hidden)closeModal()});
+$('#modalOk').addEventListener('click',e=>{
+  e.preventDefault();e.stopPropagation();
+  const name=$('#nName').value.trim();
+  if(!name){toast('اكتب اسم الشركة');$('#nName').focus();return}
   const c={id:uid(),name,ind:$('#nInd').value.trim(),cu:$('#nCu').value||'EGP',lg:$('#nLg').value||LANGS[0],thresholds:{...DEF_TH},actions:{},history:[]};
   state.companies.push(c);state.sel=c.id;save();
-  $('#nName').value=$('#nInd').value='';closeModal();showCompany('analyze');toast('اتضافت الشركة — ارفع الملف');
-};
+  $('#nName').value='';$('#nInd').value='';
+  closeModal();
+  showCompany('analyze');
+  toast('اتضافت الشركة — ارفع الملف الآن');
+});
 async function runDemo(){ensureDemoCompany();showCompany('analyze');await startFromWb(demoWb())}
 $('#btnDemo').onclick=$('#welcomeDemo').onclick=$('#btnDemoHere').onclick=runDemo;
 
